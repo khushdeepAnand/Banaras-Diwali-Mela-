@@ -9,6 +9,24 @@ The repository was confirmed empty using both `git ls-remote` and
 Local Git was initialised only inside the new Phase 7 working copy. Original inputs
 were not modified. The final commit/push receipt is recorded below after verification.
 
+### Verified first-push receipt
+
+Initial application commit: `ba9b6f9db5ff4cd46acc495a9d5375ce0d677714`.
+Normal `git push -u origin main` succeeded with configured local credentials after
+all local gates. An immediate pre-push `git ls-remote origin` again returned no refs.
+Remote `refs/heads/main` matched that exact SHA after pushing. No force-push, remote
+overwrite, credential URL, hosting deployment or production change was performed.
+
+GitHub's recursive tree API confirmed **417 files**, matching the scanned local
+Git payload exactly, not a truncated tree. Root structure: `.gitignore`, `.opencode`,
+`README.md`, `backend`, `docs`, `frontend`, `scripts`. Source, tests, both lockfiles,
+both SQL migrations and safe examples are present; forbidden/private/generated/env
+paths are absent. The exact payload and built frontend passed credential scanning.
+A subsequent documentation-only receipt commit records this result without rewriting
+the initial commit. Use `git rev-parse HEAD` and `git ls-remote origin refs/heads/main`
+to identify that final receipt commit; its actual SHA is also included in the delivery
+message. This avoids an impossible self-referential commit hash inside its own text.
+
 Only intended public source, tests, SQL migrations, assets, documentation, lockfiles
 and safe `.env.example` files belong in Git. `.gitignore` excludes real env files,
 private folders/owner images, archives, dependencies, builds, browser artifacts and

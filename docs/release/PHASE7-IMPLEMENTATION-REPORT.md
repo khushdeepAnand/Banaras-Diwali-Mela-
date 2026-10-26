@@ -215,3 +215,23 @@ including index/worktree byte equality, source/migrations and seven ignore probe
 Python release/audio/QR/security tests passed 7/7 (0.360 s). The intended remote
 was rechecked with both Git and GitHub CLI immediately before initial-commit
 preparation and still had no commits. No force-push or credential-bearing URL is used.
+
+## GitHub publication receipt
+
+Initial application commit **`ba9b6f9db5ff4cd46acc495a9d5375ce0d677714`** was normally
+pushed to **`main`** at **https://github.com/khushdeepAnand/Banaras-Diwali-Mela-**.
+The remote was rechecked empty immediately before pushing. Remote branch SHA
+matched local HEAD. GitHub recursive tree API returned all **417** intended files,
+exactly matching the scanned local tree; no forbidden paths were present.
+The final production frontend's **22 files** also passed the secret scanner.
+Only public technical documentation receipts change after the final extraction
+gate and initial source commit. A follow-up documentation commit records actual
+push evidence without amending/overwriting the published initial history.
+
+Source/tests/assets/configs and lockfiles in the delivered archive must match the
+final verified extraction; the release tool additionally verifies the final archive's
+own CRC, paths, secrets and extracted bytes. No real `.env`, dependency folder,
+build output, browser trace/result, private poster or raw owner report ships.
+The original Phase 6 ZIP SHA-256 remains
+`8a5be9f382548871216575d7d116a841f49f728d62e58bb7038fc85efaae3f46`.
+The Phase 5 baseline was not modified.
