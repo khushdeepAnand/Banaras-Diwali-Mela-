@@ -1,0 +1,14 @@
+{
+  "low": {
+    "calls": 604,
+    "triangles": 61628
+  },
+  "medium": {
+    "calls": 636,
+    "triangles": 88724
+  },
+  "high": {
+    "calls": 922,
+    "triangles": 108116
+  }
+}

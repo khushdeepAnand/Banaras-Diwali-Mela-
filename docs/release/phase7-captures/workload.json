@@ -1,0 +1,10 @@
+{
+  "source": "npm run test:e2e, phase1-profile.spec.ts, Phase 7 full regression",
+  "method": "maximum draw calls/triangles among last ten sampled frames at spawn, fireworks off",
+  "browser": "Edge headless with SwiftShader",
+  "viewport": "1280x720, input DPR 2; runtime quality caps apply",
+  "hardware_fps_benchmark": false,
+  "low": { "calls": 604, "triangles": 64816 },
+  "medium": { "calls": 632, "triangles": 93008 },
+  "high": { "calls": 915, "triangles": 112784 }
+}

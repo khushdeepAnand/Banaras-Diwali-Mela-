@@ -1,0 +1,66 @@
+import { expect, test } from '@playwright/test'
+
+test('contribution failure never displays a receipt; retry remains pending manual review', async ({ page }) => {
+  await page.goto('/')
+  await page.getByRole('button', { name: /Contribute/i }).first().click()
+  await expect(page.getByText(/LOCAL DEMO ONLY/)).toBeVisible()
+  await page.route('**/api/contributions', route => route.fulfill({ status: 503, contentType: 'application/json', body: JSON.stringify({ error: { message: 'Service temporarily unavailable; please retry later' } }) }))
+  await page.getByPlaceholder('From your UPI app').fill(`PHASE12${Date.now()}`)
+  await page.getByRole('button', { name: /Submit reference for manual verification/ }).click()
+  await expect(page.getByRole('alert')).toContainText('Service temporarily unavailable')
+  await expect(page.locator('.result-reference')).toHaveCount(0)
+  await page.unroute('**/api/contributions')
+  await page.getByRole('button', { name: /Submit reference for manual verification/ }).click()
+  await expect(page.locator('.result-reference')).toContainText('pending_verification')
+  await expect(page.getByRole('status').filter({ hasText: /NOT proof of payment/ })).toBeVisible()
+})
+
+test('stall persistence failure is truthful and applicant can retry without losing fields', async ({ page }) => {
+  await page.goto('/')
+  await page.getByRole('button', { name: 'Apply for a stall' }).click()
+  await expect(page.getByText(/LOCAL DEMO ONLY/)).toBeVisible()
+  await page.getByRole('textbox', { name: 'Stall name' }).fill(`Phase12 Test ${Date.now()}`)
+  await page.getByRole('textbox', { name: 'Vendor name' }).fill('Test applicant')
+  await page.getByRole('textbox', { name: 'Email' }).first().fill('phase12@example.test')
+  await page.getByRole('textbox', { name: 'Phone' }).fill('+919123456789')
+  await page.getByRole('textbox', { name: 'Category' }).fill('Crafts')
+  await page.getByRole('textbox', { name: 'Short description' }).fill('Illustrative handmade craft samples for testing.')
+  await page.route('**/api/applications', route => route.fulfill({ status: 503, contentType: 'application/json', body: JSON.stringify({ error: { message: 'Service temporarily unavailable; please retry later' } }) }))
+  await page.getByRole('button', { name: 'Submit stall application' }).click()
+  await expect(page.getByRole('alert')).toContainText('Service temporarily unavailable')
+  await expect(page.locator('.result-reference')).toHaveCount(0)
+  await expect(page.getByRole('textbox', { name: 'Vendor name' })).toHaveValue('Test applicant')
+  await page.unroute('**/api/applications')
+  await page.getByRole('button', { name: 'Submit stall application' }).click()
+  await expect(page.locator('.result-reference')).toContainText('pending_payment')
+})
+
+test('wrong organiser token cannot load records; unavailable config disables public submissions', async ({ page }) => {
+  await page.goto('/')
+  await page.getByRole('button', { name: 'Organiser access' }).click()
+  await page.getByLabel('Organiser API token').fill('invalid-test-token')
+  await page.getByRole('button', { name: 'Load protected records' }).click()
+  await expect(page.getByRole('alert')).toContainText('Organiser authorisation required')
+  await expect(page.locator('.admin-record')).toHaveCount(0)
+  await page.getByRole('button', { name: 'Close', exact: true }).click()
+  await page.route('**/api/public-config', route => route.fulfill({ status: 503, contentType: 'application/json', body: JSON.stringify({ error: { message: 'Service temporarily unavailable; please retry later' } }) }))
+  await page.getByRole('button', { name: /Contribute/i }).first().click()
+  await expect(page.getByRole('alert')).toContainText('Service temporarily unavailable')
+  await expect(page.getByRole('button', { name: /Submit reference for manual verification/ })).toHaveCount(0)
+})
+
+test('a late public configuration response cannot erase a newer organiser denial', async ({ page }) => {
+  let release = () => {}
+  const held = new Promise<void>(resolve => { release = resolve })
+  await page.route('**/api/public-config', async route => { await held; const response = await route.fetch(); await route.fulfill({ response }) })
+  try {
+    await page.goto('/'); await page.getByRole('button', { name: 'Organiser access' }).click()
+    await page.getByLabel('Organiser API token').fill('invalid-test-token')
+    await page.getByRole('button', { name: 'Load protected records' }).click()
+    await expect(page.getByRole('alert')).toContainText('Organiser authorisation required')
+    release()
+    await expect(page.getByRole('status').filter({ hasText: 'LOCAL DEMO ONLY' })).toBeVisible()
+    await expect(page.getByRole('alert')).toContainText('Organiser authorisation required')
+    await expect(page.locator('.admin-record')).toHaveCount(0)
+  } finally { release() }
+})

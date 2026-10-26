@@ -1,0 +1,30 @@
+.visitor-panel { z-index: 5; color: #f5e8cf; background: #142e35f5; border: 1px solid #d9b98288; border-radius: 12px; padding: 22px; font: .86rem/1.5 system-ui, sans-serif; box-shadow: 0 12px 50px #030c18aa; }
+.visitor-panel::backdrop { background: #07172833; }
+.visitor-panel h2 { font: 400 1.7rem/1.2 Georgia, serif; margin: 8px 0; color: #ffe0aa; }
+.visitor-panel p { color: #cfdbd3; font-size: .78rem; }
+.visitor-panel label { display: grid; gap: 6px; margin: 12px 0; }
+.visitor-panel select, .visitor-panel button, .visitor-panel a { min-height: 44px; border: 1px solid #d9b98288; border-radius: 6px; background: #203e44; color: #ffe9c7; padding: 8px 10px; font: inherit; }
+.visitor-panel select { width: 100%; text-transform: capitalize; }
+.visitor-panel button { cursor: pointer; }
+.visitor-panel button:focus-visible, .visitor-panel select:focus-visible, .visitor-panel input:focus-visible, .visitor-panel a:focus-visible { outline: 2px solid #ffe0aa; outline-offset: 3px; }
+.visitor-actions, .preview-angles { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.visitor-panel .visitor-primary { background: #eac48b; color: #183139; font-weight: 700; }
+.wardrobe-panel { position: fixed; inset: 85px 18px auto auto; margin: 0; width: min(360px, 44vw); max-height: calc(100dvh - 105px); overflow-y: auto; }
+.photo-panel { position: absolute; top: max(18px, env(safe-area-inset-top)); right: max(18px, env(safe-area-inset-right)); width: min(320px, 40vw); max-height: calc(100dvh - 36px); overflow-y: auto; }
+.visitor-panel .visitor-check { display: flex; align-items: center; }
+.visitor-check input { width: 22px; height: 22px; accent-color: #eac48b; }
+.photo-result { display: grid; gap: 8px; }
+.photo-result img { width: 100%; border-radius: 6px; }
+.photo-result a { text-align: center; }
+.help-panel { width: min(90vw, 480px); max-height: 88dvh; overflow-y: auto; }
+.visitor-tools { position: absolute; right: 18px; top: 112px; z-index: 4; display: grid; gap: 8px; padding: 10px; border: 1px solid #d9b98288; border-radius: 8px; background: #142e35f5; pointer-events: auto; }
+.photo-active:not(.photo-hud) .topbar, .photo-active:not(.photo-hud) .scene-label, .photo-active:not(.photo-hud) .desktop-hint, .photo-active:not(.photo-hud) .mobile-controls, .photo-active:not(.photo-hud) .stall-prompt, .photo-active:not(.photo-hud) .minimap, .photo-active:not(.photo-hud) .aarti-notice { visibility: hidden; }
+.photo-active .mobile-controls, .photo-active .minimap, .photo-active .stall-prompt { pointer-events: none; }
+.wardrobe-active .topbar, .wardrobe-active .scene-label, .wardrobe-active .desktop-hint, .wardrobe-active .mobile-controls, .wardrobe-active .stall-prompt, .wardrobe-active .minimap, .wardrobe-active .aarti-notice { visibility: hidden; }
+@media (max-width: 650px) {
+  .wardrobe-panel { inset: auto 0 0; margin: 0 auto; width: 100%; max-height: 46dvh; border-radius: 14px 14px 0 0; padding: 16px; }
+  .photo-panel { top: auto; bottom: max(10px, env(safe-area-inset-bottom)); right: 10px; left: 10px; width: auto; max-height: 44dvh; padding: 14px; }
+  .photo-panel h2 { font-size: 1.25rem; }
+  .visitor-tools { top: 92px; right: 12px; }
+}
+@media (max-height: 550px) and (min-width: 651px) { .wardrobe-panel { top: 58px; max-height: calc(100dvh - 68px); } .photo-panel { padding: 12px; } }

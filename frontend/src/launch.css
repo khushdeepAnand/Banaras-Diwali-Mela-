@@ -1,0 +1,35 @@
+.intro-backdrop { overflow-y: auto; padding: max(84px, calc(env(safe-area-inset-top) + 72px)) max(24px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(24px, env(safe-area-inset-left)); }
+.intro { width: min(100%, 43rem); margin: auto 0; }
+.intro h1 { font-size: clamp(2.6rem, 7vw, 5rem); margin: 1rem 0; }
+.intro > p:not(.eyebrow) { line-height: 1.5; margin: .65rem 0; }
+.activity-highlights { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6rem; padding: 0; max-width: 30rem; list-style: none; font: .85rem/1.4 system-ui, sans-serif; }
+.activity-highlights li { display: flex; align-items: center; gap: .6rem; padding: .6rem; border: 1px solid #f9c78955; border-radius: 6px; background: #142239bb; }
+.activity-highlights svg { flex: 0 0 24px; width: 24px; height: 24px; color: #f9c789; }
+.entry-choices { display: flex; flex-wrap: wrap; gap: .7rem; }
+.entry-choices .enter { margin-top: .5rem; }
+.enter-silent { color: #ffe5b5; background: #19394b; border: 1px solid #dfbd83; }
+.intro .entry-status { font-size: .8rem; color: #fbd498; }
+.scene-loading { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 90px 24px 150px; text-align: center; background: #122139; font: 1rem/1.5 system-ui, sans-serif; }
+.scene-loading h2 { font: 2rem Georgia, serif; margin: .8rem 0; }
+.scene-loading progress { width: min(70vw, 280px); accent-color: #f9c789; }
+.scene-loading small { max-width: 32rem; color: #e9d1b5; }
+.scene-fallback { position: absolute; z-index: 6; inset: 0; overflow-y: auto; padding: max(24px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(24px, env(safe-area-inset-left)); background: #122139; font: 1rem/1.5 system-ui, sans-serif; touch-action: auto; }
+.scene-fallback > * { max-width: 850px; margin-left: auto; margin-right: auto; }
+.scene-unavailable > :not(.viewport):not(audio) { display: none; }
+.scene-unavailable .viewport { touch-action: auto; }
+.photo-panel .visitor-check { min-height: 44px; }
+.fallback-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.fallback-gallery img { width: 100%; height: auto; border-radius: 8px; }
+.invite-actions { display: flex; flex-wrap: wrap; gap: .6rem; }
+.invite-actions a, .scene-fallback button { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: .6rem .9rem; border: 1px solid #e9bd82; border-radius: 5px; background: #243f50; color: #ffebce; font: inherit; }
+.room-panel input[readonly] { text-transform: none; letter-spacing: normal; }
+:where(a, input, button, select):focus-visible { outline: 2px solid #ffdc90; outline-offset: 3px; }
+.map-destinations { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; margin-top: 6px; }
+.map-destinations button { padding: 4px; font: inherit; }
+.map-destinations button[aria-pressed='true'] { border-color: #fff0aa; background: #395548; }
+.minimap .map-guidance { margin: 6px 0 2px; font-size: .75rem; color: #fff0ce; }
+@media (max-width: 650px) { .intro-backdrop { align-items: flex-start; } .intro { margin: 0; } .entry-choices { display: grid; } .entry-choices .enter { width: 100%; } .activity-highlights { font-size: .78rem; } .fallback-gallery { grid-template-columns: 1fr; } .minimap > div { max-height: calc(100dvh - 370px); overflow-y: auto; } }
+@media (max-height: 550px) { .intro { padding-top: 0; } .intro-backdrop { padding-top: 60px; } .minimap { top: max(64px, calc(env(safe-area-inset-top) + 56px)); bottom: auto; } .minimap > div { max-height: calc(100dvh - 230px); overflow-y: auto; } }
+@media (max-height: 550px) and (pointer: coarse) { .collection-toggle { top: auto; bottom: max(8px, env(safe-area-inset-bottom)); left: max(130px, calc(env(safe-area-inset-left) + 118px)); } }
+@media (max-width: 650px) and (max-height: 550px) { .minimap { left: max(12px, env(safe-area-inset-left)); right: auto; width: min(46vw, 190px); } .minimap > div { max-height: calc(100dvh - 280px); } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; } .scene-loading progress { visibility: hidden; } }

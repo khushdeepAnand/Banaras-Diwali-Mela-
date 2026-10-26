@@ -1,0 +1,18 @@
+.journey-panel, .rangoli-panel { width: min(94vw, 560px); max-height: 88dvh; overflow-y: auto; }
+.visitor-panel.journey-panel, .visitor-panel.rangoli-panel { background: #142e35; }
+.journey-panel progress { width: 100%; accent-color: #f9c66d; }
+.journey-stamps { list-style: none; padding: 0; display: grid; gap: 8px; }
+.journey-stamps li { display: grid; grid-template-columns: 38px 1fr; padding: 10px; border: 1px solid #b29b6155; border-radius: 12px; }
+.journey-stamps li > span { grid-row: span 2; font-size: 24px; }
+.journey-stamps li[data-complete="true"] { background: #416f5c55; border-color: #e8bf72; }
+.journey-next { padding: 12px; border-left: 3px solid #f9c66d; }
+.rangoli-panel canvas { display: block; width: 100%; aspect-ratio: 1; height: auto; touch-action: none; border-radius: 14px; border: 1px solid #b29b61; }
+.rangoli-palette { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.rangoli-palette button[aria-pressed="true"] { outline: 2px solid #fff1d0; outline-offset: 2px; }
+.visitor-panel button, .visitor-panel a { min-height: 44px; }
+.social-cues { position: fixed; z-index: 6; top: 24%; left: 50%; transform: translateX(-50%); width: min(80vw, 400px); pointer-events: none; text-align: center; }
+.social-cues p { background: #10272fe8; border: 1px solid #f9c66d77; border-radius: 14px; color: #ffe1a5; padding: 12px; }
+.social-cues .diya-celebration { box-shadow: 0 0 32px #f9c66d44; border-color: #f9c66d; }
+.visitor-tools { max-height: 65dvh; overflow-y: auto; }
+@media (prefers-reduced-motion: reduce) { .social-cues .diya-celebration { box-shadow: none; } }
+@media (max-height: 550px) { .journey-panel, .rangoli-panel { max-height: 82dvh; } .rangoli-panel canvas { width: min(100%, 320px); margin: auto; } }
