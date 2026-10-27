@@ -1,5 +1,100 @@
 # Phase 8 staging runbook
 
+## Current decision — strict Rs 0 disposable staging (27 October 2026)
+
+**This section supersedes the historical paid recommendation below. NOT DEPLOYED.**
+Select **`render.free.yaml`**, NOT the default `render.yaml`. The paid file is preserved
+byte-for-byte for historical rollback/reference; using it is not authorised here.
+No new gameplay, packages, SQL, live database, payment, portal or DNS changes.
+
+Official docs re-read during this continuation:
+- https://render.com/docs/free
+- https://render.com/docs/websocket
+- https://render.com/docs/blueprint-spec
+- https://render.com/schema/render.yaml.json
+
+Free native Node web services accept inbound WS on the same public HTTP port, with
+managed TLS. Documented free compute is 0.1 CPU / 512 MB, single instance. This is
+protocol-compatible with disposable demo staging, **not proven adequate or reliable
+for this app under real host load**. Both YAML files pass the official JSON Schema;
+this is not provider/account validation or a Linux deployment test.
+
+### Mandatory no-spend gates
+
+1. Use a free Hobby workspace with **no payment method**, no paid resources and no
+   paid environment groups. If the account has billing enabled, do not provision
+   until the owner supplies a genuinely non-billable account. A free instance alone
+   does NOT prevent overage charges on a card-backed workspace.
+2. Dashboard must show Free compute and zero payable total. Refuse card collection,
+   paid account verification, compute upgrades, extra build minutes/bandwidth purchases,
+   persistent disks, databases, add-ons and paid workspace upgrades. Stop and report
+   if Free/Singapore is unavailable or payment is required. No fallback to paid.
+3. Where available, set pipeline spend limit to zero, disable automatic upgrades and
+   review usage alerts. These account settings cannot be enforced by this YAML and
+   have **not** been verified in any account. Never use keepalive traffic to bypass sleep.
+
+750 free instance hours are shared per workspace/calendar month. At exhaustion,
+services suspend. Free HTTP/WS traffic consumes included bandwidth and build minutes.
+With no payment method, bandwidth exhaustion suspends free services; build exhaustion
+blocks new builds. With a payment method, supplementary usage may be billed: stop.
+Check current dashboard allowances before creation; do not infer unlimited free usage.
+High service-initiated public traffic can also cause suspension. Free rollback retains
+only the two most recent previous deploys; free SSH/shell and persistent disks are absent.
+
+### Free provisioning instructions — owner action, not performed
+
+1. Read the no-spend gates. Connect the intended GitHub repository privately and select
+   the reviewed final main commit. Create a **new** Blueprint with path
+   `render.free.yaml`; the Blueprint path is customisable during setup. Do not sync
+   either YAML onto an unknown existing service. Check the unique service name.
+2. If the dashboard cannot use the alternative Blueprint path, create a **new free
+   Node web service manually** using exactly the build/start/health/env settings from
+   that file. Do not rename, substitute or select the paid default file.
+3. Keep one process/instance, manual deploys and repository root. Frontend/API/socket
+   share the assigned provider hostname; there is no separate static-site resource.
+   Read the actual assigned HTTPS hostname in the dashboard and set REALTIME_ORIGINS
+   to that exact origin, without slash, path or wildcard. It is intentionally unset
+   (`sync: false`), never guessed. If creation starts an early build before assignment,
+   do not regard it as approved; correct origin before the first successful start.
+4. Keep NODE_ENV=production, DEMO_MODE=true, STAGING_DEMO=true, SERVE_FRONTEND=true,
+   VITE_API_BASE_URL blank and TRUST_PROXY_HOPS=0. Keep generated ADMIN_API_TOKEN private,
+   never in VITE variables. Remove all inherited Supabase/management/production secrets;
+   omit all database credentials. Existing environment matrix below still applies.
+5. Build/start/health are identical to the retained paid configuration. Port comes from
+   Render; do not add workers, autoscaling, payment resources, SQL hooks or a second origin.
+   Verify the pinned Node patch is still supported before public use; no pin was changed.
+6. Deploy manually only after all gates pass; inspect Linux build/runtime logs. If
+   memory/CPU is insufficient, free registration is unavailable, or billing is requested,
+   **stop**. Do not upgrade. This preparation makes no host capacity guarantee.
+7. Run the existing live checklist below (public TLS/WSS, four players/fifth rejection,
+   origins, reconnect, restart, media, demo QR refusal, CSP). Test wake-from-idle and
+   quota/suspension messaging too. Keep the InfinityFree portal and its files untouched
+   in this phase, even after staging tests. Portal edits require separate approval.
+
+### Sleep and recovery contract
+
+After 15 minutes without inbound HTTP or WS messages, free services spin down; a new
+HTTP/WS request wakes them, typically in about one minute. Render may restart them at
+any time. Room membership, resume tokens and demo records are in memory and are lost
+on process replacement; ephemeral disk writes are lost too. Existing four-player and
+reconnect behaviour is unchanged: reconnect can resume only while its owner survives;
+after replacement, join a fresh room. Do not promise an invitation restores a dead room.
+No new persistent store or gameplay workaround is added. A free service is unsuitable
+for reliable event operation/production, but can be trialled as disposable demo staging.
+
+### Current local gate
+
+Fresh frontend/backend checks: 65/65 and 49/49; both typechecks/builds pass. Python
+checks: 8/8, including free-config policy. Compiled loopback HTTPS/WSS: 2/2 (17.3 s).
+Clean-extraction offline installs, both typechecks, 65/49 tests and builds pass.
+On Windows, local TLS test needs Git's OpenSSL on PATH, e.g. PowerShell:
+`$env:PATH = 'C:\Program Files\Git\usr\bin;' + $env:PATH`.
+No public hostname, account eligibility, zero-bill setting, Linux execution or physical
+device was verified. Full historical browser suite was not rerun in this continuation.
+
+---
+## Historical first Phase 8 runbook (retained audit evidence; NOT current provisioning instructions)
+
 Status: **prepared locally, NOT deployed**. No verified public staging URL or
 deployment timestamp exists. No provider account, billing approval, CLI session or
 Render/Railway API credential is available. Do not publish a speculative game link.

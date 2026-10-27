@@ -1,5 +1,38 @@
 # Phase 8 inspection and boundaries
 
+## Current free-hosting continuation (27 October 2026)
+
+**NOT DEPLOYED.** Current instructions use `render.free.yaml`, never the retained paid
+default. See current runbook before reading historical decisions below.
+
+- Free Node/WS protocol support is documented, not a guarantee of adequate 0.1 CPU /
+  512 MB capacity or reliable sessions. Sleep, restarts, quotas and ephemeral room/demo
+  loss are expected. A card-backed account may bill overages; strict Rs 0 requires no
+  payment method and no paid upgrade/add-on. Account eligibility/settings remain unverified.
+- No provider credentials or live hostname are used. Exact WS origin must be set only
+  after real assignment. No public TLS/WSS, Linux host, edge proxy, physical device,
+  long-running load/idle test, actual free bill or live rollback has been verified.
+- Latest local results: frontend 65/65, backend 49/49, Python 8/8, both typechecks/builds,
+  clean offline reinstall/build/test and compiled local HTTPS/WSS 2/2. Existing large
+  chunk/Three deprecation warnings remain. Full ordinary browser suite was not rerun;
+  prior intermittent failures remain in the historical report rather than being hidden.
+- Phase 7 hash in the user request conflicted with the actual ZIP, sidecar and receipts.
+  Owner authorised proceeding with verified original bytes; actual SHA-256 is
+  26e62aebd21ad5bff138d9ecba03b022e014d9d0154daeaed6afc062af54e048.
+- Older private env/QR documents and differing history were found and preserved in an
+  ignored, inert local historical store. They must never enter GitHub, runtime env or
+  the latest ZIP. Keep the active folder to retain that private content. Public packaging
+  excludes it deliberately; hashes and mapping enable byte-verified recovery locally.
+- Final archive hash/size cannot be embedded in that same archive; matching sidecars,
+  final handoff and local `private/PHASE8-FINAL-DELIVERY-RECEIPT.md` hold final values,
+  final commit/readback, actual cleanup and archive-verification results.
+- No production DNS, portal files, payments, live Supabase values, migrations or gameplay
+  changed. No claim of production readiness is made. Owner must stop if free signup or
+  service capacity is blocked rather than purchase resources.
+
+---
+## Historical initial Phase 8 inspection
+
 Source: Phase 7 ZIP, 417 files, SHA-256
 `26e62aebd21ad5bff138d9ecba03b022e014d9d0154daeaed6afc062af54e048`.
 Checksum sidecar matches; ZIP CRC, safe paths and single root passed before extraction

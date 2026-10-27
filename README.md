@@ -5,7 +5,7 @@
 GitHub is independently verified against the Phase 7 ZIP, not assumed from receipts.
 The selected staging architecture keeps the InfinityFree portal unchanged and uses
 one Render Node service in Singapore for static frontend, API and WebSockets on one
-HTTPS origin. Provisioning/billing access and a verified staging URL are still required.
+HTTPS origin. A verified staging URL and account eligibility are still required.
 
 New opt-ins: `SERVE_FRONTEND=true` serves the built frontend beside the API;
 `STAGING_DEMO=true` permits disposable demo storage with a production runtime **only**
@@ -16,9 +16,11 @@ production credentials or activate real payments for demo staging.
 Read the [staging runbook](docs/release/PHASE8-STAGING-RUNBOOK.md),
 [implementation/evidence](docs/release/PHASE8-IMPLEMENTATION-REPORT.md),
 [requirements matrix](docs/release/PHASE8-REQUIREMENTS-MATRIX.md) and
-[rollback plan](docs/release/PHASE8-ROLLBACK-PLAN.md). `render.yaml` describes a **paid**
-service with manual deploys, no DNS or migration hooks. Do not provision without budget
-approval. The portal snippet in `deploy/portal-link.html` remains inert until a verified
+[rollback plan](docs/release/PHASE8-ROLLBACK-PLAN.md). **Use `render.free.yaml` for disposable
+free staging**, with manual deploys and no DNS/database hooks. Use an account without
+a payment method; stop if payment or an upgrade is required. Free sleep/restarts lose
+rooms and demo records. `render.yaml` is the unchanged historical **paid** alternative,
+not authorised for this release. The portal snippet in `deploy/portal-link.html` remains inert until a verified
 HTTPS game URL is supplied. No gameplay, approved QR/audio or database contracts change.
 
 Compiled local HTTPS smoke: after both builds, run from frontend

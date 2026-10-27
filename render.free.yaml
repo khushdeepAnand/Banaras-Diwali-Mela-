@@ -1,0 +1,35 @@
+# Disposable FREE staging only. Select this Blueprint path explicitly, not render.yaml.
+# STOP if a card, paid plan, or billable upgrade is required. No resources created here.
+services:
+  - type: web
+    name: banaras-mela-free-staging
+    runtime: node
+    region: singapore
+    plan: free
+    numInstances: 1
+    branch: main
+    autoDeployTrigger: 'off'
+    buildCommand: npm ci --prefix frontend --include=dev --no-audit --no-fund && npm ci --prefix backend --include=dev --no-audit --no-fund && npm run build --prefix frontend && npm run build --prefix backend
+    startCommand: node backend/dist/server.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DEMO_MODE
+        value: 'true'
+      - key: STAGING_DEMO
+        value: 'true'
+      - key: SERVE_FRONTEND
+        value: 'true'
+      - key: REALTIME_ORIGINS
+        sync: false
+      - key: ADMIN_API_TOKEN
+        generateValue: true
+      - key: TRUST_PROXY_HOPS
+        value: '0'
+      - key: GROUP_DIYA_THRESHOLD
+        value: '3'
+      - key: GROUP_DIYA_WINDOW_MS
+        value: '30000'
+      - key: VITE_API_BASE_URL
+        value: ''

@@ -1,5 +1,122 @@
 # Phase 8 — GitHub, integration and staging preparation
 
+## Current continuation — free-hosting preparation and safe consolidation
+
+27 October 2026. **Locally verified preparation only; no public deployment.**
+This section supersedes the historical paid-host recommendation and old output paths
+below. Original reports are retained as historical evidence, not fresh test claims.
+
+### Source and backup identity
+
+Initial active source was `C:/Users/khush/Desktop/banaras-diwali-mela-phase8/banaras-diwali-mela`.
+All 436 files in the original Phase 8 ZIP exactly matched the active working files;
+the main working tree was clean, HEAD and live remote main both
+`ce2ad5bb55c7366767764ed17348c9e15e8d5d24`. Both package versions remain 0.1.0.
+Phase 7 main was `39a6755f08c1005d698ba9afc6e1875249b7c0b5`, verified ancestor of active HEAD.
+No checkout, reset or source replacement was used. Active Git metadata is preserved.
+`git fsck --full` found no corrupt objects; six dangling blobs were reported and left
+untouched. Older Git metadata is also retained privately, including unreachable objects.
+
+Final designated parent: `C:/Users/khush/Desktop/Banaras-Diwali-Mela-Release`:
+- Active source: `banaras-diwali-mela/` (includes its original `.git`).
+- Original Phase 7: `banaras-diwali-mela-phase7-v1-20261026.zip`, 135760483 bytes,
+  SHA-256 `26e62aebd21ad5bff138d9ecba03b022e014d9d0154daeaed6afc062af54e048`.
+- Latest: `banaras-diwali-mela-latest.zip`, with matching `.zip.sha256`.
+- Phase 7 also retains its original matching `.zip.sha256`.
+
+The request's Phase 7 expected hash ended in `52bd9eb1fe67b0cee5c6fb5`; that does not
+match the archive. Actual bytes match the original sidecar and both delivery receipts.
+Owner authorised using the verified original archive after this discrepancy was raised.
+No archive bytes or Phase 7 sidecar were changed to hide it.
+Original Phase 8 ZIP was 136724467 bytes, SHA-256
+`aa7b610ead54f8fb80e5e1803ed3797d5c7a58b1512bd9eb1fe67b0cee5c6fb5`.
+Both originals passed CRC and path safety; Phase 8's 436 files matched working bytes.
+
+The latest ZIP's final size/hash and final Git publication result are recorded after
+packaging in `private/PHASE8-FINAL-DELIVERY-RECEIPT.md` in the active working project,
+the adjacent checksum sidecar, and the owner handoff. A ZIP cannot contain its own
+final hash/size without a circular dependency; these external receipts are authoritative.
+The private receipt itself is intentionally not in the ZIP or GitHub.
+
+### Scope and preservation
+
+Added `render.free.yaml` (Free, Node, single-instance, manual, same-origin), a Python
+policy regression check and required-file packaging guard. Existing paid `render.yaml`
+is unchanged byte-for-byte. All runtime code, gameplay, locks, assets, QR, migrations
+and reconnect/four-player rules are unchanged. README and all five Phase 8 reports are
+updated. Current runbook documents no-card/no-upgrade account gates and official limits.
+
+Desktop was inventoried before changes. Older Phase 5/6 folders contained private
+files not in their ZIPs, including an old backend env file: preserved only as inert,
+ignored local historical content, never installed as the active runtime `.env`.
+Every distinct non-generated file from Phase 5/6/7 folders (including old `.git`), all
+entries of Phase 4/5/6/7/8 ZIPs, receipts and sidecars were mapped to either an identical
+current file or a hash-addressed historical blob. Initial preservation check: **3170
+entries, 378 stored unique blobs, 246773048 blob bytes**, all byte-verified.
+Manifest: `private/workspace-preservation/manifest.json`; blobs in its `blobs/` sibling.
+This is not another extracted runnable project. The manifest records original paths,
+hashes, sizes and restore locations; no secret values are printed or published.
+Private preservation data is excluded from GitHub and latest ZIP. Keep the active
+folder to retain private local history; the public source ZIP is not a private-data backup.
+
+Proposed keep/move/delete list was printed before destructive cleanup. Cleanup only
+proceeds after final latest ZIP verification and preservation re-verification:
+- Move active folder, original Phase 7 ZIP and its sidecar into the designated parent.
+- Keep exactly one latest ZIP and sidecar there.
+- Remove superseded Phase 4/5/6/original Phase 8 ZIPs and old Phase 8 sidecar, whose
+  file contents were retained in the verified historical store; no unique bytes lost.
+- Remove obsolete Phase 5/6/7 folder copies after all non-generated files are retained;
+  remove empty Phase 8 wrapper and loose receipts after verified preservation.
+- Old dependency/build/test-result/cache directories may be discarded only after the
+  observed clean-extraction installs/tests/builds. Active dependencies/builds may stay
+  inside the one active project. No unrelated files or directories are targeted.
+Actual operations and final workspace entries are recorded in the final private receipt.
+
+### Fresh actual commands and results (this continuation)
+
+| Location / command | Observed result |
+| --- | --- |
+| frontend `npm run typecheck` | PASS |
+| frontend `npm test` | 65/65, 23 files, 1.77 s |
+| frontend `npm run build` | PASS; existing >500 kB chunk warning |
+| backend `npm run typecheck` | PASS |
+| backend `npm test` | 49/49, 9 files, 20.82 s; includes API/real WS/deployment/restart |
+| backend `npm run build` | PASS |
+| root `python -m unittest discover -s scripts -p 'test_*.py' -v` | 8/8, 0.526 s; release/audio/QR/security/free-config |
+| Python PyYAML + jsonschema against live official Render schema | Both paid/free YAML PASS |
+| frontend `npm run test:e2e -- --config playwright.staging.config.ts` | 2/2, 17.3 s, compiled local HTTPS/WSS; Git OpenSSL added to PATH |
+| both apps `npm audit --json` | Both exit 0, zero reported vulnerabilities |
+| clean-extraction both apps `npm ci --offline --ignore-scripts --no-audit --no-fund` | PASS; 114 frontend / 143 backend packages, 24/19 s |
+| clean-extraction both apps typecheck/test/build | All PASS; frontend 65/65 (1.27 s), backend 49/49 (18.55 s) |
+| initial build-gate `python scripts/release_zip.py --output TEMP_ZIP --extract-to NEW_TEMP_DIR` | 438 files, CRC/path/exclusions/secret scans/extraction and every intended byte comparison PASS |
+
+New policy test uses already-installed release-tool PyYAML; no runtime dependency was
+added. Existing Three CJS deprecations and large scene chunk warning remain. No check
+above failed. Historical browser failures below are not erased; full ordinary 71-case
+browser suite was **not rerun** here. Only relevant deployment browser tests ran.
+Final Git payload/history scans, archive validation, public secret-value scan and
+post-move checks are recorded in the final delivery receipt with actual results.
+
+### Hosting findings and remaining manual work
+
+Official Render free/WS/Blueprint docs were read live: free native Node + same-port WS
+is supported. Free plan has 0.1 CPU/512 MB, idle spin-down after 15 minutes without inbound
+HTTP/WS messages, roughly one-minute wake, 750 shared workspace hours/month, arbitrary
+restarts, ephemeral disk, no persistent disks/shell, bandwidth/build quotas and suspension.
+**A free instance is not sufficient to guarantee Rs 0 on a card-backed workspace**:
+overage billing can occur. Use no payment method; stop if payment, upgrade, unavailable
+free capacity or inadequate CPU/RAM blocks staging. No account settings were verified.
+No uptime, real-host performance or persistent-room guarantee is made.
+
+Owner must establish a non-billable free account, select `render.free.yaml` explicitly,
+assign hostname, set exact REALTIME_ORIGINS privately, deploy only Free, and run live
+TLS/WSS/proxy/reconnect/restart/media/demo/wake tests. Keep Supabase absent, payments
+disabled and the existing InfinityFree portal untouched. Paid rollout, production,
+physical-device QA and live database work are outside this completed local preparation.
+
+---
+## Historical initial Phase 8 implementation (retained evidence)
+
 Inspection started 26 October 2026; release work continued 27 October 2026.
 **No public staging deployment or production change is claimed.**
 Staging URL: **BLOCKED / none**. Deployment timestamp: **not applicable**.

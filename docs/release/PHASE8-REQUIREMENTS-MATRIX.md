@@ -1,5 +1,29 @@
 # Phase 8 traceable requirements matrix
 
+## Current free-hosting / cleanup continuation (27 October 2026)
+
+This table supersedes historical paid-host and old-path decisions below. Local-only
+preparation is not production readiness. Final receipt is local
+`private/PHASE8-FINAL-DELIVERY-RECEIPT.md`; archive hashes also live in adjacent sidecars.
+
+| Requirement | Evidence / result | Remaining gate |
+| --- | --- | --- |
+| Correct current source | Original Phase 8 ZIP's 436 files exactly match clean main at ce2ad5bb55c7366767764ed17348c9e15e8d5d24; initial live remote matches | Final publication readback in receipt |
+| Preserve original Phase 7 | 135760483 bytes; actual SHA-256 26e62aebd21ad5bff138d9ecba03b022e014d9d0154daeaed6afc062af54e048; sidecar/receipts agree; owner accepted request-hash correction | Rechecked during final packaging |
+| Preserve unique historical/private work | 3170 mapped entries; 378 historical blobs; verified content-addressed ignored private store, including old Git metadata | Keep active folder for private history; excluded from public ZIP |
+| Single designated workspace, two ZIP roles | Banaras-Diwali-Mela-Release with active project, original Phase 7, latest and two sidecars; proposed cleanup printed | Actual entries/operations in receipt |
+| Free same-origin Node/API/WS | Separate render.free.yaml; plan free, one instance, manual; paid YAML unchanged; both pass official schema | Free account eligibility/Linux build/host capacity not verified |
+| Strict zero-spend | No-card workspace required, no upgrades/add-ons; account limits and stop conditions in runbook | Account UI and any verification/payment prompt are manual blockers |
+| Demo/no live DB/payments/secrets | Existing fail-closed runtime preserved; demo QR 404 and backend auth guards; no Supabase variables in YAML; only blank VITE_API_BASE_URL | Exact origin after real hostname; token private |
+| Preserve four-player/reconnect/gameplay | No runtime or gameplay files changed; 49 backend tests and 2 compiled HTTPS/WSS tests pass | Public WSS/idle/restart/phone QA not performed |
+| Actual local validation | Frontend 65/65; backend 49/49; Python 8/8; both typechecks/builds; clean-extraction reinstall/tests/builds; zero npm audit findings | Full ordinary browser suite not rerun; historical failures retained |
+| Latest ZIP complete and safe | Existing release packager plus free-YAML required-file guard; CRC/path/exclusion/extraction/byte checks | Final hash/size/verification recorded outside self-referential archive |
+| Git safety | No checkout/reset/force push; initial remote readback matches; source changes only | Actual final commit/push/readback in receipt |
+| Portal/DNS/live deployment untouched | No provider provisioning, portal or DNS/payment/database operation | NOT DEPLOYED, no public URL |
+
+---
+## Historical initial Phase 8 matrix
+
 Scope: original user goals and implemented Phase 7 additions, not a new reference-site
 feature backlog. “Complete (local)” means source exists and local evidence is available;
 it does not certify the unprovisioned public host or physical devices. Exact fresh

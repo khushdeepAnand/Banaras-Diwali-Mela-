@@ -147,7 +147,8 @@ def main():
                  'backend/test/deployment.test.ts', 'backend/test/restart.test.ts',
                  'frontend/playwright.staging.config.ts', 'frontend/e2e-staging/deployment.spec.ts',
                  'frontend/e2e-staging/tls-proxy.mjs', 'scripts/audit_git_history.py',
-                 'deploy/staging/.env.example', 'deploy/portal-link.html', 'render.yaml', '.node-version']
+                  'deploy/staging/.env.example', 'deploy/portal-link.html', 'render.yaml', 'render.free.yaml',
+                  'scripts/test_free_staging.py', '.node-version']
     if not set(required) <= names:
         raise ValueError(f'Missing required files: {set(required) - names}')
     args.output.parent.mkdir(parents=True, exist_ok=True)

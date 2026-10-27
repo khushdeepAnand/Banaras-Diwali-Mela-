@@ -1,5 +1,39 @@
 # Phase 8 rollback plan
 
+## Current free-staging / consolidation rollback (27 October 2026)
+
+No public deployment occurred. Do not provision paid `render.yaml` as a rollback.
+Leave that historical file unchanged; choose only `render.free.yaml` for a new free
+service after account/no-spend gates. If Free fails, stop rather than upgrade.
+
+- Before any future free deployment, retain the full tested same-origin commit/build
+  and private config separately. Render Free retains only two previous deploys; no
+  SSH/shell, persistent disk or permanent artifact retention is assumed.
+- If an eventual staging service malfunctions, stop public testing and manually deploy
+  the last tested same-origin commit on **Free** or suspend/remove that new free staging
+  service. Verify the dashboard does not select a paid plan. Announce total room/demo
+  state loss; clients may need a fresh room. Never restore credentials from old env files.
+- Verify actual host HTTPS/WSS/demo/Origin/capacity and restart behaviour before testing
+  resumes. These operational steps have not been performed against a real host.
+- No portal edit or DNS change occurred in this phase, so none needs rolling back.
+  Do not touch InfinityFree files as part of a staging failure.
+- Workspace consolidation is content-preserving: original Phase 7 ZIP remains unchanged;
+  historical files map through `private/workspace-preservation/manifest.json`. For a
+  selected original entry, read its `retained` field: `active:PATH` means identical bytes
+  under the active root; `blob:SHA256` means `private/workspace-preservation/blobs/SHA256`.
+  Verify bytes against `sha256`, then copy to a **new private recovery directory** using
+  the recorded original path. ZIP origins use `archive.zip:entry`; recover the entry,
+  not an executable ZIP. Never restore over the active tree or activate a historic env.
+  Historical Git metadata is recorded the same way. Latest public ZIP deliberately
+  excludes this private store; retain the active project for local/private history.
+- Original obsolete ZIP compression bytes are not retained: their entries are retained
+  exactly. Only the required original Phase 7 archive has byte-for-byte ZIP preservation.
+- Git rollback requires a new reviewed revert commit, never reset/force-push. Source
+  rollback does not recover lost in-memory rooms. No SQL/data rollback is required.
+
+---
+## Historical initial Phase 8 operational plan
+
 No live deployment or portal change has occurred. This is an execution plan for the
 owner after an approved staging deployment, not evidence that rollback was exercised
 against Render or InfinityFree.
