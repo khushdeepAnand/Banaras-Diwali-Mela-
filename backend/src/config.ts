@@ -4,6 +4,8 @@ const environment = z.object({
   PORT: z.coerce.number().int().min(1).max(65535).default(3001),
   NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
   DEMO_MODE: z.enum(['true', 'false']).default('false'),
+  STAGING_DEMO: z.enum(['true', 'false']).default('false'),
+  SERVE_FRONTEND: z.enum(['true', 'false']).default('false'),
   TRUST_PROXY_HOPS: z.coerce.number().int().min(0).max(5).default(0),
   REALTIME_ORIGINS: z.string().default('http://127.0.0.1:5173,http://localhost:5173,http://127.0.0.1:5174,http://localhost:5174'),
   GROUP_DIYA_THRESHOLD: z.coerce.number().int().min(2).max(4).default(3),
@@ -30,9 +32,15 @@ const environment = z.object({
     if (url.protocol !== 'https:' && (env.NODE_ENV === 'production' || !['localhost', '127.0.0.1', '[::1]'].includes(url.hostname))) invalid('SUPABASE_URL', 'HTTPS required outside local development')
   }
   if (env.ADMIN_API_TOKEN && env.ADMIN_API_TOKEN.length < 32) invalid('ADMIN_API_TOKEN', 'Use a random token of at least 32 characters')
+  if (env.STAGING_DEMO === 'true') {
+    if (env.NODE_ENV !== 'production' || env.DEMO_MODE !== 'true') invalid('STAGING_DEMO', 'Staging demo requires production runtime and explicit demo mode')
+    if (env.SUPABASE_URL || key) invalid('STAGING_DEMO', 'Staging demo forbids database credentials')
+  }
   if (env.NODE_ENV === 'production') {
-    if (env.DEMO_MODE === 'true') invalid('DEMO_MODE', 'Demo storage is forbidden in production')
-    if (!env.SUPABASE_URL || !key) invalid('SUPABASE_URL', 'Production requires persistent storage')
+    if (env.STAGING_DEMO !== 'true') {
+      if (env.DEMO_MODE === 'true') invalid('DEMO_MODE', 'Demo storage is forbidden in production')
+      if (!env.SUPABASE_URL || !key) invalid('SUPABASE_URL', 'Production requires persistent storage')
+    }
     if (!env.ADMIN_API_TOKEN) invalid('ADMIN_API_TOKEN', 'Production requires organiser authentication')
   }
 })

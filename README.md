@@ -1,5 +1,31 @@
 # Banaras Diwali Mela
 
+## Phase 8 — staging preparation, not deployed
+
+GitHub is independently verified against the Phase 7 ZIP, not assumed from receipts.
+The selected staging architecture keeps the InfinityFree portal unchanged and uses
+one Render Node service in Singapore for static frontend, API and WebSockets on one
+HTTPS origin. Provisioning/billing access and a verified staging URL are still required.
+
+New opt-ins: `SERVE_FRONTEND=true` serves the built frontend beside the API;
+`STAGING_DEMO=true` permits disposable demo storage with a production runtime **only**
+when DEMO_MODE=true, Supabase credentials are absent and organiser authentication is
+configured. Defaults preserve existing production fail-closed behaviour. Never reuse
+production credentials or activate real payments for demo staging.
+
+Read the [staging runbook](docs/release/PHASE8-STAGING-RUNBOOK.md),
+[implementation/evidence](docs/release/PHASE8-IMPLEMENTATION-REPORT.md),
+[requirements matrix](docs/release/PHASE8-REQUIREMENTS-MATRIX.md) and
+[rollback plan](docs/release/PHASE8-ROLLBACK-PLAN.md). `render.yaml` describes a **paid**
+service with manual deploys, no DNS or migration hooks. Do not provision without budget
+approval. The portal snippet in `deploy/portal-link.html` remains inert until a verified
+HTTPS game URL is supplied. No gameplay, approved QR/audio or database contracts change.
+
+Compiled local HTTPS smoke: after both builds, run from frontend
+`npm run test:e2e -- --config playwright.staging.config.ts`. This uses a generated
+self-signed loopback certificate, not a public deployment. Do not run simultaneously
+with the ordinary browser suite. Full history scan: `python scripts/audit_git_history.py`.
+
 ## Phase 7 — a Kashi evening
 
 Open **Visitor tools → Kashi Journey** for five optional local stamps: marigolds,

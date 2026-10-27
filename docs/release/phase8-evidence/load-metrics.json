@@ -1,0 +1,7 @@
+{
+  "environment": "local self-signed HTTPS / Edge SwiftShader, not public staging",
+  "responseEndMs": 12.299999982118607,
+  "domContentLoadedMs": 355.39999997615814,
+  "loadEventEndMs": 355.59999999403954,
+  "sceneObservedAfterEntryMs": 1761.0999999940395
+}

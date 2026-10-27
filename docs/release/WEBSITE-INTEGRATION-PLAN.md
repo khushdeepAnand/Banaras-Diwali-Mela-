@@ -1,5 +1,13 @@
 # Website integration plan — approval required, not deployed
 
+**Phase 8 update:** the current prepared topology is a single Render Node service
+serving frontend/API/WS via explicit `SERVE_FRONTEND`, with a strictly isolated
+`STAGING_DEMO` production-runtime opt-in. No public deployment is claimed. Use
+`PHASE8-STAGING-RUNBOOK.md` and `PHASE8-ROLLBACK-PLAN.md` for current steps; the
+Phase 6 source description below remains historical. InfinityFree/portal/DNS remain
+unchanged. Ordinary production still rejects demo storage unless the new explicit
+staging-only guard is enabled with no DB credentials and private organiser auth.
+
 26 October 2026, updated for Phase 6. The user supplied the HTTPS portal URL:
 `https://banarasdiwalimela.kesug.com`. Hosting provider, plan, portal technology,
 account architecture and Node/WebSocket support are not confirmed. The name alone

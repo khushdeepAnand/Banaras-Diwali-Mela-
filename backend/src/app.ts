@@ -6,6 +6,8 @@ import { loadConfig } from './config.js'
 import { applicationHash, applicationPaymentSchema, applicationSchema, applicationUpdateSchema, calculateFee, contributionSchema, contributionUpdateSchema, DEFAULT_SETTINGS, paymentUri, publicApplication, reference, settingsSchema, type Application, type Contribution } from './commerce.js'
 import { DemoStore, DuplicateError, StoreUnavailableError, SupabaseStore, type CommerceStore } from './store.js'
 import { DONATION } from './shared/donation.js'
+import { mountFrontend } from './static.js'
+import { parseRoomOrigins } from './rooms.js'
 
 export type AppOptions = { store?: CommerceStore; mode?: 'demo' | 'supabase' | 'unavailable'; adminToken?: string }
 export function createApp(options: AppOptions = {}) {
@@ -19,7 +21,7 @@ export function createApp(options: AppOptions = {}) {
   const config = loadConfig()
   const key = config.SUPABASE_SECRET_KEY || config.SUPABASE_SERVICE_ROLE_KEY
   const configured = Boolean(config.SUPABASE_URL && key)
-  const mode = options.mode ?? (configured ? 'supabase' : config.DEMO_MODE === 'true' && config.NODE_ENV !== 'production' ? 'demo' : 'unavailable')
+  const mode = options.mode ?? (config.STAGING_DEMO === 'true' ? 'demo' : configured ? 'supabase' : config.DEMO_MODE === 'true' && config.NODE_ENV !== 'production' ? 'demo' : 'unavailable')
   const store = options.store ?? (mode === 'demo' ? new DemoStore() : mode === 'supabase' && configured ? new SupabaseStore(config.SUPABASE_URL, key) : null)
   const adminToken = options.adminToken ?? config.ADMIN_API_TOKEN
   const enabled = (_req: express.Request, res: express.Response, next: express.NextFunction) => {
@@ -150,6 +152,8 @@ export function createApp(options: AppOptions = {}) {
     await store!.updateContribution({ ...record, status })
     res.json({ data: { reference: record.reference, status } })
   })
+
+  if (config.SERVE_FRONTEND === 'true') mountFrontend(app, new URL('../../frontend/dist/', import.meta.url), parseRoomOrigins(config.REALTIME_ORIGINS, config.NODE_ENV === 'production'), config.STAGING_DEMO === 'true')
 
   app.use((_req, res) => {
     res.status(404).json({ error: { code: 'NOT_FOUND', message: 'Resource not found' } })

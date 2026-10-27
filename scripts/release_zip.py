@@ -43,7 +43,7 @@ def excluded(path):
     return (bool(set(path.parts) & SKIP)
             or path.name.lower().startswith('organiser-') and path.suffix.lower() in {'.png', '.jpg', '.jpeg', '.webp', '.pdf'}
             or path.name.startswith('.env') and path.name != '.env.example'
-            or path.suffix in {'.zip', '.log', '.tsbuildinfo', '.pyc', '.tmp', '.trace'}
+            or path.suffix in {'.zip', '.log', '.tsbuildinfo', '.pyc', '.tmp', '.trace', '.har', '.pem', '.key', '.p12', '.pfx', '.bundle'}
             or path.name == '.DS_Store')
 
 
@@ -141,6 +141,13 @@ def main():
                  'backend/src/shared/social.ts', 'backend/test/social.test.ts',
                  'frontend/src/components/journey.test.ts', 'frontend/e2e/phase7.spec.ts',
                  'frontend/e2e/phase7-social.spec.ts', 'frontend/src/journey.css']
+    required += ['docs/release/PHASE8-GAPS.md', 'docs/release/PHASE8-IMPLEMENTATION-REPORT.md',
+                 'docs/release/PHASE8-STAGING-RUNBOOK.md', 'docs/release/PHASE8-ROLLBACK-PLAN.md',
+                 'docs/release/PHASE8-REQUIREMENTS-MATRIX.md', 'backend/src/static.ts',
+                 'backend/test/deployment.test.ts', 'backend/test/restart.test.ts',
+                 'frontend/playwright.staging.config.ts', 'frontend/e2e-staging/deployment.spec.ts',
+                 'frontend/e2e-staging/tls-proxy.mjs', 'scripts/audit_git_history.py',
+                 'deploy/staging/.env.example', 'deploy/portal-link.html', 'render.yaml', '.node-version']
     if not set(required) <= names:
         raise ValueError(f'Missing required files: {set(required) - names}')
     args.output.parent.mkdir(parents=True, exist_ok=True)

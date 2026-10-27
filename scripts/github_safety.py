@@ -29,7 +29,8 @@ def main():
         if line.strip() and not line.startswith('#') and line.split('=')[0] != 'VITE_API_BASE_URL':
             raise ValueError('Unexpected frontend environment variable')
     ignored = ['frontend/.env', 'backend/.env.local', 'frontend/node_modules/probe', 'backend/dist/server.js',
-               'backend/private/owner.pdf', 'frontend/test-results/trace.zip', 'release.zip']
+               'backend/private/owner.pdf', 'frontend/test-results/trace.zip', 'release.zip',
+               'tls-private.pem', 'service.key', 'browser.har', 'backup.bundle']
     for name in ignored:
         result = subprocess.run(['git', 'check-ignore', '-q', name], cwd=ROOT)
         if result.returncode != 0:

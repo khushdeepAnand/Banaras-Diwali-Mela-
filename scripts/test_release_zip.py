@@ -22,7 +22,9 @@ class ReleaseExclusions(unittest.TestCase):
                      'backend/private/donation-poster-candidate.png', 'backend/private/donation-qr-candidate.png', 'backend/private/donation-qr-verification.json',
                      'docs/phase5/organiser-qr-supplied.jpeg', 'docs/phase5/organiser-view.png',
                      'backend/.env', 'frontend/.env.local', 'frontend/node_modules/x.js',
-                     'frontend/dist/index.html', '.git/config', 'frontend/test-results/capture.png']:
+                     'frontend/dist/index.html', '.git/config', 'frontend/test-results/capture.png',
+                     'deploy/private-key.pem', 'credentials.key', 'certificate.pfx', 'tls.p12',
+                     'browser.har', 'remote-backup.bundle']:
             with self.subTest(name=name):
                 self.assertTrue(excluded(Path(name)))
 

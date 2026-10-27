@@ -22,3 +22,9 @@ organiser-*.jpg
 organiser-*.jpeg
 organiser-*.webp
 organiser-*.pdf
+*.har
+*.pem
+*.key
+*.p12
+*.pfx
+*.bundle
