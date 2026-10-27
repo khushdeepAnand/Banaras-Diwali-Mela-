@@ -288,3 +288,26 @@ delivery receipt and final response, avoiding self-referential archive/commit ha
 The final archive is reopened, CRC/path/secret checked, extracted and byte compared
 again. Provider access and live verification remain BLOCKED; original intermittent
 suite failures remain recorded even though every failed case passed serial recovery.
+
+## Verified Phase 8 GitHub publication
+
+Normal fast-forward publication succeeded on 27 October after local/clean-extraction
+gates: **`a8301bc76bf634ef282572373003f7b1e162ee98`**, branch **main**, at
+https://github.com/khushdeepAnand/Banaras-Diwali-Mela- . Immediately before committing,
+fetched origin/main still matched the inspected Phase 7 baseline; no unknown remote
+work was overwritten. No force push or history rewrite occurred.
+
+GitHub API readback returned **436 files**, non-truncated. Every remote Git blob hash
+matched the corresponding local file. `render.yaml`, static server, portal template,
+new tests, runbook/report/matrix/rollback and both existing SQL migrations are present.
+Root now also includes `.node-version`, `deploy` and `render.yaml`. All **3 reachable
+commits / 445 distinct blobs** passed the full-history private-path/credential scan.
+No detected secrets require rotation; public test-only credentials must never be
+reused for a live service. The repository discrepancy is resolved by direct evidence.
+
+A documentation-only follow-up records this observed result without rewriting the
+published application commit. Its final HEAD and Desktop ZIP hash are emitted in
+the adjacent delivery receipt/final response and verified again against GitHub.
+This avoids claiming a commit contains its own hash or a ZIP contains its own checksum.
+No provider deployment, automatic production promotion or live portal change is implied
+by a GitHub push. Public staging URL and deployment timestamp remain **none / BLOCKED**.
